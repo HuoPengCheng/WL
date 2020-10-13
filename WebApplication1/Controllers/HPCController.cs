@@ -15,9 +15,39 @@ namespace WebApplication1.Controllers
     {
         public WLDbcontext db;
         public HPCController(WLDbcontext db) { this.db = db; }
+        /// <summary>
+        /// 显示
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult<IEnumerable<Student>>> Show()
         {
             return await db.Student.ToListAsync();
+        }
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ActionResult<int>>Del(int id)
+        {
+           db.Student.Remove(db.Student.Find(id));
+            return await db.SaveChangesAsync();
+        }
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="age"></param>
+        /// <param name="sex"></param>
+        /// <returns></returns>
+        public async Task<ActionResult<int>> Add(string name,int age,string sex)
+        {
+            Student s = new Student();
+            s.Name = name;
+            s.Age = age;
+            s.Sex = sex;
+            db.Student.Add(s);
+            return await db.SaveChangesAsync();
         }
     }
 }
