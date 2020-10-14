@@ -19,9 +19,14 @@ namespace WebApplication1.Controllers
         /// 显示
         /// </summary>
         /// <returns></returns>
-        public async Task<ActionResult<IEnumerable<Student>>> Show()
+        public async Task<ActionResult<IEnumerable<Student>>> Show(string name="")
         {
-            return await db.Student.ToListAsync();
+            var list = from s in db.Student select s;
+            if (!string.IsNullOrEmpty(name))
+            {
+                list = list.Where(p => p.Name.Contains(name));
+            }
+            return await list.ToListAsync();
         }
         /// <summary>
         /// 删除
@@ -49,7 +54,25 @@ namespace WebApplication1.Controllers
             db.Student.Add(s);
             return await db.SaveChangesAsync();
         }
-        
+        /// <summary>
+        /// 反填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ActionResult<IEnumerable<Student>>> Fan(int id)
+        {
+            var list = from u in db.Student select u;
+            list = list.Where(p => p.Id == id);
+            return await list.ToListAsync();
+        }
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="age"></param>
+        /// <param name="sex"></param>
+        /// <returns></returns>
         public async Task<ActionResult<int>>Update(int id ,string name,int age,string sex)
         {
             Student s = db.Student.Find(id);
