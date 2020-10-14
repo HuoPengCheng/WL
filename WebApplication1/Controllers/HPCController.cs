@@ -49,5 +49,14 @@ namespace WebApplication1.Controllers
             db.Student.Add(s);
             return await db.SaveChangesAsync();
         }
+        
+        public async Task<ActionResult<int>>Update(int id ,string name,int age,string sex)
+        {
+            Student s = db.Student.Find(id);
+            s.Name = name;
+            s.Age = age;
+            s.Sex = sex;
+            return await db.SaveChangesAsync();
+        }
     }
 }
