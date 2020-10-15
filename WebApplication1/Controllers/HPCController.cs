@@ -19,12 +19,16 @@ namespace WebApplication1.Controllers
         /// 显示
         /// </summary>
         /// <returns></returns>
-        public async Task<ActionResult<IEnumerable<Student>>> Show(string name="")
+        public async Task<ActionResult<IEnumerable<Student>>> Show(string name="",string sex="")
         {
             var list = from s in db.Student select s;
             if (!string.IsNullOrEmpty(name))
             {
                 list = list.Where(p => p.Name.Contains(name));
+            }
+            if (!string.IsNullOrEmpty(sex))
+            {
+                list = list.Where(p => p.Sex==sex);
             }
             return await list.ToListAsync();
         }
