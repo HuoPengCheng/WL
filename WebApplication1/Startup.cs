@@ -35,13 +35,16 @@ namespace WebApplication1
             {
                 options.AddPolicy("cors", builder =>
                 {
-                    builder.WithOrigins("https://localhost:44332")//允许指定域名访问
+                    builder.WithOrigins("https://localhost:44332", "http://localhost:59253/")//允许指定域名访问
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials();//指定处理cookie
                 });
             });
+            services.AddDistributedMemoryCache();
+            services.AddSession();
             services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,12 +55,13 @@ namespace WebApplication1
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            app.UseSession();
 
             app.UseRouting();
-            app.UseCors("cors");
 
             app.UseAuthorization();
+
+            app.UseCors("cors");
 
             app.UseEndpoints(endpoints =>
             {
