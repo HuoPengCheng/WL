@@ -6,7 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
-
+using SqlCommand = Microsoft.Data.SqlClient.SqlCommand;
+using SqlConnection = Microsoft.Data.SqlClient.SqlConnection;
+using SqlDataAdapter = Microsoft.Data.SqlClient.SqlDataAdapter;
+using SqlParameter = System.Data.SqlClient.SqlParameter;
 
 namespace WebApplication1
 {
@@ -50,6 +53,7 @@ namespace WebApplication1
                 return dt;
             }
         }
+
 
         public static int CUD_Proc(string pname, SqlParameter[] paras = null)
         {
