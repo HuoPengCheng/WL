@@ -19,12 +19,22 @@ namespace WebApplication1.Controllers
         /// 显示
         /// </summary>
         /// <returns></returns>
-        public async Task<ActionResult<IEnumerable<ProductInfo>>> Show(string name = "", string sex = "")
+        public async Task<ActionResult<IEnumerable<ProductInfo>>> Show(string name = "", string sj="",string js ="")
         {
             var list = from s in db.Products select s;
             if (!string.IsNullOrEmpty(name))
             {
                 list = list.Where(p => p.Pname.Contains(name));
+            }
+            if (!string.IsNullOrEmpty(sj))
+            {
+                DateTime st = DateTime.Parse(sj);
+                list = list.Where(s => s.Psendtime > st);
+            }
+            if (!string.IsNullOrEmpty(js))
+            {
+                DateTime et = DateTime.Parse(js);
+                list = list.Where(s => s.Psendtime < et);
             }
             //if (!string.IsNullOrEmpty(sex))
             //{
@@ -49,7 +59,7 @@ namespace WebApplication1.Controllers
         /// <param name="age"></param>
         /// <param name="sex"></param>
         /// <returns></returns>
-        public async Task<ActionResult<int>> Add(string name,string type, string company,string price,string kuaidi,string sendtime,string rectime,string dest)
+        public async Task<ActionResult<int>> Add(string name,string type, string company,string price,string kuaidi,DateTime sendtime,DateTime rectime,string dest)
         {
             ProductInfo product = new ProductInfo();
             product.Pname = name;
@@ -82,7 +92,7 @@ namespace WebApplication1.Controllers
         /// <param name="age"></param>
         /// <param name="sex"></param>
         /// <returns></returns>
-        public async Task<ActionResult<int>> Update(int id, string name, string type, string company, string price, string kuaidi, string sendtime, string rectime, string dest)
+        public async Task<ActionResult<int>> Update(int id, string name, string type, string company, string price, string kuaidi, DateTime sendtime, DateTime rectime, string dest)
         {
             ProductInfo product = db.Products.Find(id);
             product.Pname = name;
@@ -90,8 +100,8 @@ namespace WebApplication1.Controllers
             product.Pcompany = company;
             product.Price = price;
             product.Pkuaidi = kuaidi;
-            product.Psendtime = sendtime;
-            product.Prectime = rectime;
+            //product.Psendtime = sendtime;
+            //product.Prectime = rectime;
             product.Pdest = dest;
             return await db.SaveChangesAsync();
         }

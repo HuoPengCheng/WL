@@ -18,8 +18,8 @@ namespace WebApplication1.Model
         public string Pcompany { get; set; }
         public string Price { get; set; }
         public string Pkuaidi { get; set; }
-        public string Psendtime { get; set; }
-        public string Prectime { get; set; }
+        public DateTime Psendtime { get; set; }
+        public DateTime Prectime { get; set; }
         public string Pdest { get; set; }
     }
 }
