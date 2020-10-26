@@ -14,5 +14,6 @@ namespace WebApplication1.Model
         public DbSet<Student> Student { get; set; }
         public DbSet<ProductInfo> Products { get; set; }
         public DbSet<LStudent> LStudent { get; set;  }
+   
     }
 }
