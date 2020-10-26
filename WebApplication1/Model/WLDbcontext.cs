@@ -12,6 +12,7 @@ namespace WebApplication1.Model
         public WLDbcontext(DbContextOptions<WLDbcontext> options) : base(options) { }
 
         public DbSet<Student> Student { get; set; }
+        public DbSet<ProductInfo> Products { get; set; }
         public DbSet<LStudent> LStudent { get; set;  }
     }
 }
