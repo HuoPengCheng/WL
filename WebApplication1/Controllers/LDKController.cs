@@ -79,13 +79,13 @@ namespace WebApplication1.Controllers
         /// <param name="age"></param>
         /// <param name="sex"></param>
         /// <returns></returns>
-        public async Task<ActionResult<int>> Update(int id, string name, string sex ,int age)
+        public async Task<ActionResult<int>> Update( string name, string sex ,int age,int id)
         {
             LStudent s = db.LStudent.Find(id);
             s.Name = name;
-           
             s.Sex = sex;
             s.Age = age;
+            db.Entry(s).State = EntityState.Modified;
             return await db.SaveChangesAsync();
         }
     
