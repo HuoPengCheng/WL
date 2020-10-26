@@ -33,7 +33,7 @@ namespace WebApplication1.Controllers
             return b;
         }
         [HttpPost]
-        public IEnumerable<PLStudent> GetSS(int id=0)
+        public IEnumerable<PLStudent> GetSS(int id)
         {
             var b = d.Show();
             if (id!=0)
